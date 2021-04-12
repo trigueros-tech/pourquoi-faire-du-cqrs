@@ -22,7 +22,7 @@ namespace ExempleCQRS.Controllers
         }
 
         [HttpGet("{id}")]
-        public async  Task<UserDto> Get(int id, CancellationToken cancellationToken)
+        public async  Task<GetUserById.Dto> Get(int id, CancellationToken cancellationToken)
         {
             var query = new GetUserById(id);
             return await _mediator.Send(query, cancellationToken);
