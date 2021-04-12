@@ -5,7 +5,7 @@ using MediatR;
 
 namespace ExempleCQRS.Queries.Users
 {
-    public class GetUserById : IRequest<UserDto>
+    public class GetUserById : IRequest<GetUserById.Dto>
     {
         public int Id { get; }
 
@@ -13,21 +13,21 @@ namespace ExempleCQRS.Queries.Users
         {
             Id = id;
         }
+        
+        public class Dto
+        {
+            public int Id { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+        }
     }
     
-    public class UserDto
+    public class GetUserByIdHandler : IRequestHandler<GetUserById, GetUserById.Dto>
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
-    
-    public class GetUserByIdHandler : IRequestHandler<GetUserById, UserDto>
-    {
-        public Task<UserDto> Handle(GetUserById request, CancellationToken cancellationToken)
+        public Task<GetUserById.Dto> Handle(GetUserById request, CancellationToken cancellationToken)
         {
             // TODO : Traitement métier ici
-            return Task.FromResult(new UserDto
+            return Task.FromResult(new GetUserById.Dto
             {
                 Id = request.Id,
                 FirstName = "Alain",
